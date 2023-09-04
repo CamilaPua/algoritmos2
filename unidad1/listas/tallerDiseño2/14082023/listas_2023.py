@@ -76,15 +76,17 @@ class ListaSimple:
         return elementosIntermedios
 
 
-    def eliminarNodo(self, nodoAnterior, nodoActual) -> NodoSimple:
+    def eliminarNodo(self, nodoAnterior: NodoSimple, nodoActual: NodoSimple):
         if nodoActual == self.nodoInicial:
             self.nodoInicial = nodoActual.siguiente
+            self.longitud -= 1
         else:
             nodoAnterior.siguiente = nodoActual.siguiente
-        return nodoActual.siguiente
+            self.longitud -= 1
+        return nodoActual
 
 
-    def eliminarCadaElemento(self, elemento):
+    def eliminarCadaElemento(self, elemento: NodoSimple):
         """
         Elimina todas las apariciones de un dato en la lista
         """
@@ -104,50 +106,20 @@ class ListaSimple:
             nodoActual      = nodoActual.siguiente
 
 
-    def esIgualA(self, otraLista):
+    def comparar(self, otraLista):
         """
         Indica si dos listas son iguales en longitud y contenido (elementos-orden)
         """
         return str(self) == str(otraLista)
 
 
-    # def mover(self, elemento, posicionFinal):
-    #     """
-    #     Mueve un elemento desde una posición inicial, a una posición final de la lista.
-    #     """
-    #     try:
-    #         assert self.longitud > 0, 'La lista esta vacia'
-    #         assert self.longitud > 2, 'No se puede mover el elemento, solo hay una posicion en la lista'
-    #     except AssertionError as error:
-    #         return error
-
-    #     nodoActual      = self.nodoInicial
-    #     nodoAnterior    = self.nodoInicial
-    #     nodoAMover      = None
-
-    #     while nodoActual:
-    #         if nodoActual.info == elemento:
-    #             nodoAMover = self.eliminarNodo(nodoAnterior, nodoActual)
-    #             break
-
-    #         nodoAnterior    = nodoActual
-    #         nodoActual      = nodoActual.siguiente
-
-    #     if nodoAMover == None:
-    #         return 'El elemento no esta en la lista'
-    #     else:
-    #         posicionActual  = 0
-    #         nodoActual      = self.nodoInicial
-    #         nodoAnterior    = self.nodoInicial
-
-    #         while nodoActual:
-    #             if posicionActual == posicionFinal:
-    #                 nodoAnterior.siguiente  = nodoAMover
-    #                 nodoAMover.siguiente    = nodoActual
-    #                 print('rightHERE')
-    #                 break
-
-    #             print('HERE')
-    #             nodoAnterior = nodoActual
-    #             nodoActual = nodoActual.siguiente
-    #             posicionActual += 1
+    def mover(self, elemento: NodoSimple, posicionFinal):
+        """
+        Mueve un elemento desde una posición inicial, a una posición final de la lista.
+        """
+        try:
+            assert self.longitud > 0, 'La lista esta vacia'
+            assert self.longitud > 2, 'No se puede mover el elemento, solo hay una posicion en la lista'
+        except AssertionError as error:
+            return error
+        
