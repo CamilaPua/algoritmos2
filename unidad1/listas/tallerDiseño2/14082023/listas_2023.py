@@ -106,7 +106,7 @@ class ListaSimple:
             nodoActual      = nodoActual.siguiente
 
 
-    def comparar(self, otraLista):
+    def compare(self, otraLista):
         """
         Indica si dos listas son iguales en longitud y contenido (elementos-orden)
         """

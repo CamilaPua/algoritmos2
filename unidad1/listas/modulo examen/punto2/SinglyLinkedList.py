@@ -25,6 +25,12 @@ class SinglyLinkedList:
         else:
             raise StopIteration
 
+    def object_is_in(self, value) -> bool:
+        for node in self:
+            if node == value:
+                return True
+        return False
+
     def has_something(self) -> bool:
         return self.size > 0
 
@@ -52,6 +58,20 @@ class SinglyLinkedList:
                 current_node = current_node.next_node
             current_node.next_node = new_node
             self.size += 1
+
+    def delete(self, object):
+        current_node = self.head
+        previous_node = self.head
+        while current_node:
+            if current_node.value == object:
+                if current_node == self.head:
+                    self.head = current_node.next_node
+                else:
+                    previous_node.next_node = current_node.next_node
+                self.size -= 1
+                break
+            previous_node = current_node
+            current_node = current_node.next_node
 
     def delete_first(self) -> None:
         """Delete the first object in the list."""
@@ -194,3 +214,23 @@ class SinglyLinkedList:
     def compare(self, other_list):
         """Determine if two lists are equal in length and content (element order)."""
         return str(self) == str(other_list)
+
+    def object_is_in(self, value) -> bool:
+        current_node = self.head
+        if self.has_something():
+            while current_node:
+                if current_node.value == value:
+                    return True
+                current_node = current_node.next_node
+        return False
+
+    def remove_common(self, other_list):
+        """Remove common elements between two lists."""
+        common_elements = SinglyLinkedList()
+        for i in self:
+            if other_list.object_is_in(i):
+                common_elements.append(i)
+        for element in common_elements:
+            while self.object_is_in(element) or other_list.object_is_in(element):
+                other_list.delete(element)
+                self.delete(element)
