@@ -55,11 +55,8 @@ class GrafoListaSinPesos:
 
     def recorrerProfundidad(self, vertice_inicial):        
         if self.__buscarVertice(vertice_inicial) is None:
-            return None        
+            return None
         recorrido, visitados = self.__dfs(list(), set(), vertice_inicial)
-        for vertice in self.verVertices():
-            if vertice not in visitados:
-                recorrido, visitados = self.__dfs(recorrido, visitados, vertice)
         return recorrido
 
     #RECORRIDO EN ANCHURA BFS    
