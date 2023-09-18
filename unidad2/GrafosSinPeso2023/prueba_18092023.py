@@ -14,6 +14,7 @@ def prueba():
     grafo.adicionarArcoDirigido('c', 'b')
     grafo.adicionarArcoDirigido('d', 'c')
     print('Grafo:', grafo)
+    print('Profundidad:', grafo.recorrerProfundidad('a'))
 
 # Ejercicio
 def ejercicio():
@@ -25,7 +26,9 @@ def ejercicio():
     grafo.adicionarArco(2, 3)
     grafo.adicionarArco(1, 4)
     grafo.adicionarArco(4, 5)
-    print(grafo)
+    print('Grafo:', grafo)
+    print('Profundidad:', grafo.recorrerProfundidad(1))
 
 if __name__ == '__main__':
-    ejercicio()
+    prueba()
+    # ejercicio()
