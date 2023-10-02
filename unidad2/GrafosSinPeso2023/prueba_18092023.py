@@ -1,23 +1,23 @@
 from grafos_sinpesos_2023 import GrafoListaSinPesos
 
-def prueba():
+def grafo1_diapositiva():
     grafo = GrafoListaSinPesos()
+    vertices = ['R', 'D', 'F', 'K', 'L']
+    for vertice in vertices:
+        grafo.adicionarVertice(vertice)
 
-    grafo.adicionarVertice('a')
-    grafo.adicionarVertice('b')
-    grafo.adicionarVertice('c')
-    grafo.adicionarVertice('d')
-    print('Grafo:', grafo)
+    grafo.adicionarArcoDirigido('R', 'D')
+    grafo.adicionarArcoDirigido('F', 'K')
+    grafo.adicionarArco('D', 'F')
+    grafo.adicionarArcoDirigido('D', 'K')
+    grafo.adicionarArcoDirigido('F', 'K')
+    grafo.adicionarArcoDirigido('L', 'K')
+    grafo.adicionarArcoDirigido('L', 'F')
 
-    grafo.adicionarArcoDirigido('a', 'b')
-    grafo.adicionarArcoDirigido('b', 'a')
-    grafo.adicionarArcoDirigido('c', 'b')
-    grafo.adicionarArcoDirigido('d', 'c')
-    print('Grafo:', grafo)
-    print('Profundidad:', grafo.recorrerProfundidad('a'))
+    return grafo
 
 # Ejercicio
-def ejercicio():
+def grafo2_diapositiva(inicio_recorrido=None, anchura=False):
     grafo = GrafoListaSinPesos()
     vertices = [1, 2, 3, 4, 5, 6]
     for vertice in vertices:
@@ -26,9 +26,27 @@ def ejercicio():
     grafo.adicionarArco(2, 3)
     grafo.adicionarArco(1, 4)
     grafo.adicionarArco(4, 5)
-    print('Grafo:', grafo)
-    print('Profundidad:', grafo.recorrerProfundidad(1))
+
+    if inicio_recorrido :
+        return grafo.recorridos(inicio_recorrido)
+    return grafo
+
+def grafo_9_vertices(inicio_recorrido=None, anchura=False):
+    grafo = GrafoListaSinPesos()
+    vertices = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    for vertice in vertices:
+        grafo.adicionarVertice(vertice)
+    grafo.adicionarArco(1, 2)
+    grafo.adicionarArco(2, 3)
+    grafo.adicionarArco(3, 4)
+    grafo.adicionarArco(3, 5)
+    grafo.adicionarArco(4, 5)
+    grafo.adicionarArco(2, 6)
+    grafo.adicionarArcoDirigido(6, 7)
+    grafo.adicionarArcoDirigido(7, 8)
+    grafo.adicionarArcoDirigido(8, 9)
 
 if __name__ == '__main__':
-    prueba()
-    # ejercicio()
+    grafo = grafo1_diapositiva()
+    print(grafo)
+    print(grafo.vertices_terminales())

@@ -10,7 +10,9 @@ class GrafoListaSinPesos:
         return self.__lista_vertices.get(dato_buscar)
 
     def verAdyacentes(self, dato_buscar):
-        return list(self.__lista_vertices.get(dato_buscar))
+        # solo se ejecuta si el vertice esta en el grafo
+        if self.__buscarVertice(dato_buscar) != None:
+            return list(self.__buscarVertice(dato_buscar))
 
     def adicionarVertice(self, dato_nuevo_vertice):
         if self.__buscarVertice(dato_nuevo_vertice) is None:
@@ -82,3 +84,55 @@ class GrafoListaSinPesos:
             if vertice not in visitados:
                 recorrido, visitados = self.__bfs(recorrido, visitados, vertice)
         return recorrido
+
+    def recorrido(self, inicio_recorrido, anchura=False):
+        if anchura:
+            recorrido = self.recorrerAnchura(inicio_recorrido)
+        else:
+            recorrido = self.recorrerProfundidad(inicio_recorrido)
+        return recorrido
+
+    def grado_salida(self, vertice) -> int:
+        return len(self.verAdyacentes(vertice))
+
+    def grado_entrada(self, vertice):
+        if self.__buscarVertice(vertice):
+            grado_entrada = 0
+            # recorrer grafo
+            for vertice_actual in self.__lista_vertices:
+                if vertice in self.verAdyacentes(vertice_actual):
+                    grado_entrada += 1
+            return grado_entrada
+
+    def eliminar_arco(self, vertice1, vertice2, dirigido=True) -> None:
+        # solo se ejecuta si ambos vertices estan en el grafo
+        if self.__buscarVertice(vertice1) and self.__buscarVertice(vertice2):
+            if dirigido:
+                # borrar vertice 2 de los adyacentes de vertice 1
+                    self.__lista_vertices[vertice1].discard(vertice2)
+            else:
+                # borrar ambos adyacentes en los sets de cada vertice    
+                    self.__lista_vertices[vertice1].discard(vertice2)
+                    self.__lista_vertices[vertice2].discard(vertice1)
+
+    def eliminar_vertice(self, vertice_a_eliminar) -> None:
+        if self.__buscarVertice(vertice_a_eliminar):
+            for vertice_actual in self.__lista_vertices:
+                if vertice_a_eliminar in self.verAdyacentes(vertice_actual):
+                    self.eliminar_arco(vertice_actual, vertice_a_eliminar)
+            self.__lista_vertices.pop(vertice_a_eliminar)
+
+    def es_adyacente_de(self, vertice):
+        if self.__buscarVertice(vertice):
+            lo_tienen_como_adyacente = []
+            for vertice_actual in self.__lista_vertices:
+                if vertice in self.verAdyacentes(vertice_actual):
+                    lo_tienen_como_adyacente.append(vertice_actual)
+            return lo_tienen_como_adyacente
+
+    def vertices_terminales(self) -> list:
+        vertices_terminales = []
+        for vertice_actual in self.__lista_vertices:
+            if len(self.verAdyacentes(vertice_actual)) == 0:
+                vertices_terminales.append(vertice_actual)
+        return vertices_terminales
